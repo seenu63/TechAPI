@@ -58,12 +58,12 @@ var app = builder.Build();
 app.UseResponseCompression();
 
 // Swagger in development
-if (app.Environment.IsDevelopment())
-{
+//if (app.Environment.IsDevelopment())
+//{
     app.MapOpenApi();
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+//}
 
 // ===== Middleware Pipeline =====
 
