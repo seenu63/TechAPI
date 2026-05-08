@@ -58,16 +58,12 @@ var app = builder.Build();
 app.UseResponseCompression();
 
 // Swagger in development
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
-        c.RoutePrefix = "swagger"; // important
-    });
-}
+//if (app.Environment.IsDevelopment())
+//{
+app.MapOpenApi();
+app.UseSwagger();
+app.UseSwaggerUI();
+//}
 
 // ===== Middleware Pipeline =====
 
@@ -86,7 +82,6 @@ app.UseAuthorization();
 
 // Default redirect to Swagger
 app.MapGet("/", () => Results.Redirect("/swagger"));
-
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
