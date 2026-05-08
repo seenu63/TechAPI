@@ -62,7 +62,11 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
+        c.RoutePrefix = "swagger"; // important
+    });
 }
 
 // ===== Middleware Pipeline =====
@@ -83,13 +87,11 @@ app.UseAuthorization();
 // Default redirect to Swagger
 app.MapGet("/", () => Results.Redirect("/swagger"));
 
-var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
-app.Run($"http://0.0.0.0:{port}");
-
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
 // Map controllers
 app.MapControllers();
 
-app.Run();
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+app.Run($"http://0.0.0.0:{port}");
